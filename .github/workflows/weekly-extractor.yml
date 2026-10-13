@@ -20,7 +20,7 @@ jobs:
     environment: main-deployment
 
     container:
-      image: python:3.12-slim
+      image: ghcr.io/astral-sh/uv:python3.12-bookworm-slim
       options: --shm-size=2gb --security-opt seccomp=unconfined
 
     env:
@@ -42,13 +42,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Cache pip packages
+      - name: Set up uv cache
         uses: actions/cache@v4
         with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          path: /root/.cache/uv
+          key: ${{ runner.os }}-uv-${{ hashFiles('uv.lock') }}
           restore-keys: |
-            ${{ runner.os }}-pip-
+            ${{ runner.os }}-uv-
 
       - name: Cache APT packages
         uses: actions/cache@v4
@@ -84,10 +84,9 @@ jobs:
 
       - name: Install Python Dependencies & Run Script
         run: |
-          python -m pip install --upgrade pip
-          python -m pip install -r requirements.txt
+          uv sync --frozen --no-dev
           echo "Running job with cfg_type=$cfg_type..."
-          python main.py
+          uv run python main.py
 
       - name: Debug Selenium cache after run
         if: always()
