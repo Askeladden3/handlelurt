@@ -12,6 +12,7 @@ on:
         type: choice
         options:
           - standard
+          - test
           - custom
 
 jobs:
