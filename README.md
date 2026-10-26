@@ -1,9 +1,9 @@
-# kundeavissok
+# Handlelurt
 
 
 
 ## Hva gjør den?
-Laster ned og analyserer kundeaviser fra diverse matbutikker i Norge.
+Benytter kunstig intelligens til å ukentlig oppdage og kategorisere de beste mattilbudene tilgjengelig på norske matbutikker og gjør resultatene tilgjengelig på handlelurt.no
 
 
 
